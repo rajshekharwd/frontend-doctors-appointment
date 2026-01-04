@@ -1,0 +1,16 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSearchDoctors()">
+    <section class="hero-section">
+        <h1>Find Your Best Doctor</h1>
+        <p>Search doctors, clinics, or specialties across the country.</p>
+        <div class="search-box">
+            <input type="text" placeholder="Search doctors, clinics..." formControlName="name">
+            <select formControlName="location">
+                <option value="All Locations">All Locations</option>
+                @for(location of allLocation$ | async; track location){
+                <option value="{{location}}">{{location}}</option>
+                }
+            </select>
+            <button class="search-btn" type="submit">Search</button>
+        </div>
+    </section>
+</form>

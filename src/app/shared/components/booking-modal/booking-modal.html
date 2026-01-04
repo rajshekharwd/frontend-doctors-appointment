@@ -1,0 +1,24 @@
+<div class="modal">
+  <div class="modal-content">
+
+    @if (notBooked) {
+      <h2>{{ title }}</h2>
+
+      <div class="modal-btns">
+        <button class="btn-close" (click)="close()">Cancel</button>
+      </div>
+    }
+    @else {
+      <div style="font-size: 2.5rem; margin-bottom: 10px;">📅</div>
+
+      <h2>{{ title }}</h2>
+      <p>{{ message }}</p>
+
+      <div class="modal-btns">
+        <button class="btn-close" (click)="close()">Cancel</button>
+        <button class="btn-confirm" (click)="confirmBooking()">Confirm</button>
+      </div>
+    }
+
+  </div>
+</div>

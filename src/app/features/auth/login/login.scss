@@ -1,0 +1,165 @@
+/* =========================
+   CSS VARIABLES
+========================= */
+:root {
+  --primary: #2c7be5;
+  --primary-hover: #1a68d1;
+  --success: #00d97e;
+  --text-dark: #12263f;
+  --text-muted: #6e84a3;
+  --bg-light: #f1f4f8;
+  --white: #ffffff;
+}
+
+/* =========================
+   MODAL OVERLAY
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 38, 63, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* =========================
+   MODAL CONTAINER
+========================= */
+.modal-content {
+  background: var(--white);
+  padding: 28px 26px;
+  width: 420px;
+  max-width: 90%;
+  border-radius: 12px;
+  box-shadow: 0 25px 60px rgba(18, 38, 63, 0.25);
+  animation: fadeIn 0.3s ease;
+  position: relative;
+}
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 18px;
+  color: var(--text-muted);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.modal-close:hover {
+  color: var(--text-dark);
+}
+
+/* =========================
+   HEADINGS
+========================= */
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+/* =========================
+   INPUT FIELDS
+========================= */
+.modal input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #dce3f1;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  font-size: 14px;
+}
+
+.modal input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(44, 123, 229, 0.15);
+}
+
+/* =========================
+   VALIDATION MESSAGE
+========================= */
+small {
+  color: #e5533d;
+  display: block;
+  margin-top: -8px;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+.modal button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.modal button[type="submit"]:hover {
+  background: var(--primary-hover);
+}
+
+.modal button[type="submit"]:disabled {
+  background: #b5c8ef;
+  cursor: not-allowed;
+}
+
+/* =========================
+   SWITCH LOGIN / REGISTER
+========================= */
+.switch {
+  margin-top: 14px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.switch span {
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.switch span:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   SUCCESS STATE (OPTIONAL)
+========================= */
+.success {
+  color: var(--success);
+  text-align: center;
+  font-weight: 600;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

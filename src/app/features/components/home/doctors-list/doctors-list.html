@@ -1,0 +1,159 @@
+<main class="main-content">
+    <section class="doctor-list">
+        <h2>Available Specialists</h2>
+        <!-- @if(loading$ | async){
+        <p>Loading doctors...</p>
+        }
+        @for(doctor of doctors$ | async; track doctor.id){
+        <div class="doc-card">
+            <div class="doc-info">
+                <img src="https://plus.unsplash.com/premium_photo-1658506671316-0b293df7c72b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZG9jdG9yZXxlbnwwfHwwfHx8MA%3D%3D"
+                    alt="Doctor" class="doc-img">
+                <div class="text">
+                    <h3>{{doctor.name}}</h3>
+                    <p class="specialty">{{doctor.specialization}} • {{doctor.experience}} Yrs Exp</p>
+                    <p class="rating">⭐ {{doctor.rating}} ({{doctor.reviews}} Reviews)</p>
+                </div>
+            </div>
+            <div class="booking-area">
+                <div class="slots">
+                    @for (slot of doctor.availableSlots; track slot.time) {
+                    <span class="slot" [ngClass]="slot.status">
+                        {{ slot.time }}
+                    </span>
+                    }
+
+                </div>
+                <button class="book-btn" onclick="openModal('Dr. Sarah Jenkins')">Book Appointment</button>
+            </div>
+        </div>
+        } -->
+        <!-- <div class="doc-card">
+                <div class="doc-info">
+                    <img src="https://plus.unsplash.com/premium_photo-1658506671316-0b293df7c72b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZG9jdG9yZXxlbnwwfHwwfHx8MA%3D%3D" alt="Doctor" class="doc-img">
+                    <div class="text">
+                        <h3>Dr. Sarah Jenkins</h3>
+                        <p class="specialty">Cardiologist • 12 Yrs Exp</p>
+                        <p class="rating">⭐ 4.9 (120 Reviews)</p>
+                    </div>
+                </div>
+                <div class="booking-area">
+                    <div class="slots">
+                        <span class="slot">9:00 AM</span>
+                        <span class="slot available">2:00 PM</span>
+                    </div>
+                    <button class="book-btn" onclick="openModal('Dr. Sarah Jenkins')">Book Appointment</button>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <div class="doc-info">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=200" alt="Doctor" class="doc-img">
+                    <div class="text">
+                        <h3>Dr. Michael Chen</h3>
+                        <p class="specialty">Dermatologist • 8 Yrs Exp</p>
+                        <p class="rating">⭐ 4.8 (85 Reviews)</p>
+                    </div>
+                </div>
+                <div class="booking-area">
+                    <div class="slots">
+                        <span class="slot available">1:00 PM</span>
+                        <span class="slot">4:30 PM</span>
+                    </div>
+                    <button class="book-btn" onclick="openModal('Dr. Michael Chen')">Book Appointment</button>
+                </div>
+            </div>
+              <div class="doc-card">
+                <div class="doc-info">
+                    <img src="https://plus.unsplash.com/premium_photo-1664475543697-229156438e1e?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Doctor" class="doc-img">
+                    <div class="text">
+                        <h3>Dr. Michael Chen</h3>
+                        <p class="specialty">Dermatologist • 8 Yrs Exp</p>
+                        <p class="rating">⭐ 4.8 (85 Reviews)</p>
+                    </div>
+                </div>
+                <div class="booking-area">
+                    <div class="slots">
+                        <span class="slot available">1:00 PM</span>
+                        <span class="slot">4:30 PM</span>
+                    </div>
+                    <button class="book-btn" onclick="openModal('Dr. Michael Chen')">Book Appointment</button>
+                </div>
+            </div>  -->
+
+
+<div aria-live="polite" aria-atomic="true">
+
+  @defer (when doctors$ | async) {
+
+    @if ((doctors$ | async)?.length === 0) {
+      <p class="empty-state">
+        No doctors found for the selected filters.
+      </p>
+    }
+    @else {
+
+      @for (doctor of doctors$ | async; track doctor.id) {
+        <div class="doc-card">
+          <div class="doc-info">
+            <img
+              src="doctor/{{doctor.name}}.jpg"
+              alt="Doctor"
+              class="doc-img"
+            />
+
+            <div class="text">
+              <h3>{{ doctor.name }}</h3>
+              <p class="specialty">
+                {{ doctor.specialization }} • {{ doctor.experience }} Yrs Exp
+              </p>
+              <p class="rating">
+                ⭐ {{ doctor.rating }} ({{ doctor.reviews }} Reviews)
+              </p>
+            </div>
+          </div>
+
+          <div class="booking-area">
+            <div class="slots">
+              @for (slot of doctor.availableSlots; track slot.time) {
+                <span
+        class="slot"
+        type="button"
+        [ngClass]="[
+    slot.status,
+    selectedSlots[doctor.id] === slot.time ? 'selected' : ''
+  ]"
+        (click)="bookSlot(doctor.id, slot.time)"
+      >
+        {{ slot.time }}
+              </span>
+              }
+            </div>
+
+            <button class="book-btn" type="button" (click)="onBookAppointment(doctor.name, doctor.id)">
+              Book Appointment
+            </button>
+          </div>
+        </div>
+      }
+
+    }
+
+  }
+  @placeholder {
+    <p>Preparing doctor list…</p>
+  }
+  @loading {
+    <p>Loading doctors…</p>
+  }
+  @error {
+    <p>Failed to load doctors.</p>
+  }
+
+</div>
+
+
+    </section>
+<ng-container #modalHost></ng-container> 
+
+</main>

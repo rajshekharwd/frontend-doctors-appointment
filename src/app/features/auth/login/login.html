@@ -1,0 +1,77 @@
+<div class="modal">
+  <div class="modal-content">
+
+    <!-- Close -->
+    <button class="modal-close" (click)="closeForm()">✖</button>
+
+    @if (isLoginMode) {
+
+      <!-- LOGIN FORM -->
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+        <h2>Login</h2>
+
+        <input type="email" placeholder="Email" formControlName="email" />
+
+        @if (loginForm.controls.email.touched && loginForm.controls.email.invalid) {
+          <small>Email is required</small>
+        }
+
+        <input type="password" placeholder="Password" formControlName="password" />
+
+        @if (loginForm.controls.password.touched && loginForm.controls.password.invalid) {
+          <small>Password must be at least 6 characters</small>
+        }
+
+        <button type="submit" [disabled]="loginForm.invalid">
+          Login
+        </button>
+
+        <p class="switch">
+          Don’t have an account?
+          <span (click)="toggleMode()">Register</span>
+        </p>
+
+      </form>
+
+    }
+    @else {
+
+      <!-- REGISTER FORM -->
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+
+        <h2>Create Account</h2>
+
+        <input type="text" placeholder="Full Name" formControlName="fullName" />
+
+        @if (registerForm.controls.fullName.touched && registerForm.controls.fullName.invalid) {
+          <small>Full name is required</small>
+        }
+
+        <input type="email" placeholder="Email" formControlName="email" />
+
+        <input type="tel" placeholder="Mobile Number" formControlName="phone" />
+
+        <input type="password" placeholder="Password" formControlName="password" />
+
+        <input type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
+
+        <!-- @if (registerForm.errors?.mismatch && registerForm.touched) {
+          <small>Passwords do not match</small>
+        } -->
+
+        <button type="submit" [disabled]="registerForm.invalid">
+          Register
+        </button>
+
+        <p class="switch">
+          Already have an account?
+          <span (click)="toggleMode()">Login</span>
+        </p>
+
+      </form>
+
+    }
+
+  </div>
+</div>
